@@ -8,22 +8,31 @@ namespace MvcDemo.Models
 {
     public class TaskHelper
     {
-        public Guid Id { get; set; }
+        //public TaskHelper()
+        //{
+        //    this.Project = new HashSet<Project>();
+        //}
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Title { get; set; }
         [Required]
-        [MaxLength(50)]
-        public string Discribtion { get; set; }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
-        public Guid ProjectId { get; set; }
+        [MaxLength(500)]
+        public string Content { get; set; }
+        public Guid StaffId { get; set; }
+      //  public Staff Staff { get; set; }
+        public Guid Project_Id { get; set; }
         public Project Project { get; set; }
         [Required]
         public DateTime Deadline { get; set; }
         public DateTime CreateTime { get; set; }
-        public Nullable< DateTime> FinishTime { get; set; }
+        public Nullable<DateTime> FinishTime { get; set; }
         [Required]
         public bool IsFinished { get; set; } = false;
+        public int Priority { get; set; } = 1;
+        public int Status { get; set; }
+        public string ApplicationUser_Id { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
