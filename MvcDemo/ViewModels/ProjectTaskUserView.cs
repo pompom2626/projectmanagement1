@@ -9,7 +9,7 @@ namespace MvcDemo.ViewModels
 {
     public class ProjectTaskUserView
     {
-
+        public Guid PId { get; set; } = Guid.NewGuid();
         public decimal Budget { get; set; }
         public Nullable<decimal> RealBudget { get; set; }
         public DateTime CreateTime { get; set; } = DateTime.Now;

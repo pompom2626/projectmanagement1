@@ -17,41 +17,81 @@ namespace MvcDemo.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        public ActionResult Index(string whoId)
+        public ActionResult Index(string whoId, Guid? ProjectId)
         {
-            var UserID = User.Identity.GetUserId();
+         //   List<UPTNotification> viewModel = new List<UPTNotification>();
+            var viewmodelResult = from p in db.Projects
+                                  join u in db.UserProjects on p.Id equals u.Project_Id
+                                  where u.ApplicationUser_Id == whoId
+                                  //orderby p.CustomerKey, k.StateProvinceName
+                                  select new UPTNotification { Projects = p};
+          
+          
+            //2list linq =>
+            //var UserID = User.Identity.GetUserId();
+            //var joinList = db.UserProjects.Where(u => u.ApplicationUser_Id == whoId).ToList();
+            //List<Project> projectList = new List<Project>();
+            //foreach(var pro in joinList)
+            //{
 
-            List<ProjectTaskUserView> viewModel = new List<ProjectTaskUserView>();
-            var result1 = from a in db.Projects
-                         join b in db.UserProjects on a.Id equals b.Project_Id
-                         select new
-                         {
-                             CreateTime = a.CreateTime,
-                             Deadline = a.Deadline,
-                             IsFinished = a.IsFinished,
-                             ProjectTitle = a.ProjectTitle,
-                             ProjectContent = a.ProjectContent,
-                             Priority = a.Priority,
-                             ApplicationUser_Id = b.ApplicationUser_Id
-                         };
-            var result2 = result1.Where(r => r.ApplicationUser_Id == UserID).ToList();
-            foreach (var a in result2) //retrieve each item and assign to model
-            {
-                viewModel.Add(new ProjectTaskUserView()
-                {
-                    CreateTime = a.CreateTime,
-                    Deadline = a.Deadline,
-                    IsFinished = a.IsFinished,
-                    ProjectTitle = a.ProjectTitle,
-                    ProjectContent = a.ProjectContent,
-                    Priority = a.Priority, 
-                    ApplicationUser_Id = a.ApplicationUser_Id
-                });
-            }
+            //}
 
-         //   ViewBag.ProjectList = result2;
-           
-            return View(viewModel);
+            //List<Project> projectList = new List<Project>();
+            //foreach (var pro1 in db.Projects)
+            //{
+            //   if(pro1.Id ==joinList.proj)
+            //}
+
+
+            //viewmodel version1
+            // List<ProjectTaskUserView> viewModel = new List<ProjectTaskUserView>();
+
+            // var result1 = from a in db.Projects
+            //              join b in db.UserProjects on a.Id equals b.Project_Id
+            //              select new
+            //              {
+            //                  CreateTime = a.CreateTime,
+            //                  Deadline = a.Deadline,
+            //                  IsFinished = a.IsFinished,
+            //                  ProjectTitle = a.ProjectTitle,
+            //                  ProjectContent = a.ProjectContent,
+            //                  Priority = a.Priority,
+            //                  ApplicationUser_Id = b.ApplicationUser_Id
+            //              };
+            // var result2 = result1.Where(r => r.ApplicationUser_Id == UserID).ToList();
+            // foreach (var a in result2) //retrieve each item and assign to model
+            // {
+            //     viewModel.Add(new ProjectTaskUserView()
+            //     {
+            //         CreateTime = a.CreateTime,
+            //         Deadline = a.Deadline,
+            //         IsFinished = a.IsFinished,
+            //         ProjectTitle = a.ProjectTitle,
+            //         ProjectContent = a.ProjectContent,
+            //         Priority = a.Priority, 
+            //         ApplicationUser_Id = a.ApplicationUser_Id
+            //     });
+            // }
+
+            //ViewBag.Tasks = new SelectList(db.Projects, "Id", "ProjectTitle");
+
+            //   get related tasks for the selected project
+            //var result3 = from a in db.Projects
+            //              join b in db.TaskHelpers on a.Id equals b.Project.Id
+            //              select new
+            //              {
+            //                 ProId = a.Id,
+            //                 CreateTime = b.CreateTime,
+            //                 Deadline = b.Deadline,
+            //                 IsFinished = b.IsFinished,
+            //                 Title = b.Title,
+            //                 Priority = b.Priority,
+            //                 CreatorId = b.CreatorId,
+
+            //             };
+            //var result4= result3.Where(r => r.ProId == ).ToList();
+
+            return View(viewmodelResult);
         }
 
         // GET: Projects/Details/5
@@ -79,12 +119,12 @@ namespace MvcDemo.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-     //   [ValidateAntiForgeryToken]
+        //   [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Budget,RealBudget,CreateTime,Deadline,FinishedTime,IsFinished,ProjectTitle,ProjectContent,Priority")] Project project)
         {
             if (ModelState.IsValid)
             {
-             
+
                 db.Projects.Add(project);
                 //userProject table
                 UserProject mTom = new UserProject();
@@ -100,10 +140,10 @@ namespace MvcDemo.Controllers
 
 
                 db.SaveChanges();
-                return RedirectToAction("Index","Projects");
+                return RedirectToAction("Index", "Projects");
             }
-      
-             return View();
+
+            return View();
         }
 
         // GET: Projects/Edit/5

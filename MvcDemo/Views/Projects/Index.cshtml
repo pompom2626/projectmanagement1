@@ -1,34 +1,75 @@
 ﻿
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div style="float:left;width:45%">
-    <h2>Projects List</h2>
-    <table>
-        <tr>
-            <th>CreationDate </th>
-            <th>Deadline </th>
-            <th>IsFinished </th>
-            <th>ProjectTitle </th>
-            <th>ProjectContent </th>
-            <th>Priority </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <div style="float:left;width:40%">
+        <h2>Projects List</h2>
+      
+        <p>
+            @Html.ActionLink("Create New Project", "Create")
+        </p>
+        <table>
             <tr>
-                <td>@item.CreateTime</td>
-                <td>@item.Deadline</td>
-                <td>@item.IsFinished</td>
-                <td>@item.ProjectTitle</td>
-                <td>@item.ProjectContent</td>
-                <td>@item.Priority</td>
-
+                <th>CreationDate </th>
+                <th>Deadline </th>
+                <th>IsFinished </th>
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
             </tr>
-        }
-    </table>
-</div>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>@item.Projects.CreateTime</td>
+            <td>@item.Projects.Deadline</td>
+            <td>@item.Projects.IsFinished</td>
+            <td>@item.Projects.ProjectTitle</td>
+            @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+            <td>@item.Projects.ProjectContent</td>
+            <td>@item.Projects.Priority</td>
+            <td>
+                @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
+                @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Projects.Id }, null)
+            </td>
+
+        </tr>
+            }
+        </table>
+    </div>
+
+    <div style="float:right;width:40%;margin-left:20px">
+        <h2>Tasks List</h2>
+        @*@using (Html.BeginForm())
+        {
+            @Html.DropDownList("Tasks")
+            <input type="submit" value="Submit" />
+        }*@
+        <p>
+            @Html.ActionLink("Create New Task", "Create", "TaskHelpers")
+        </p>
+        <table>
+            <tr>
+                @*<th>CreationDate </th>*@
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>@item.CreateTime</td>*@
+                    @*<td>@item.Deadline</td>*@
+                    @*<td>@item.IsFinished</td>*@
+                    @*<td>@item.ProjectTitle</td>
+                    <td>@item.ProjectContent</td>
+                    <td>@item.Priority</td>*@
+
+                </tr>
+            }
+        </table>
+    </div>
 
 
-</table>
+
