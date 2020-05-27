@@ -7,13 +7,13 @@ namespace MvcDemo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _3_multiTomulti_UserProject : IMigrationMetadata
+    public sealed partial class _1_Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_3_multiTomulti_UserProject));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_1_Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005260533093_3_multiTomulti_UserProject"; }
+            get { return "202005270120149_1_Initial"; }
         }
         
         string IMigrationMetadata.Source

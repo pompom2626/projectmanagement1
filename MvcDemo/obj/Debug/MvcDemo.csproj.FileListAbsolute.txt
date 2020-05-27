@@ -1006,5 +1006,3 @@ C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csprojAssemblyReference.cache
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._1_Initial.resources
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csproj.GenerateResource.cache
-C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._3_multiTomulti_UserProject.resources
-C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._3_userToTaskHelper_PjojectToTaskHelper_Reslation.resources

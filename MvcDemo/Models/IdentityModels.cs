@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 //using ADKZProject.Models; //for dolphin's namespace
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MvcDemo.Migrations;
 
 namespace MvcDemo.Models
 {
@@ -22,10 +25,10 @@ namespace MvcDemo.Models
         [StringLength(100)]
         public string FullName { get; set; }
         public bool Gender { get; set; }
-        public Guid Project_Id { get; set; }
-        public virtual ICollection<Project> Projects { get; set; }
-        public Guid TaskHelper_Id { get; set; }
-        public virtual ICollection<TaskHelper> TaskHelpers { get; set; }
+        //public Guid UserProject_Id { get; set; }
+        public virtual ICollection<UserProject> UserProjects { get; set; }
+        //public Guid UserTask_Id { get; set; }
+        public virtual ICollection<UserTask> UserTasks { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -50,15 +53,13 @@ namespace MvcDemo.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //    public DbSet<Manager> Managers { get; set; }
-        // public DbSet<ManagerModel> magerModels { get; set; }
-        //model name should be changed (mvc already same model name)
+       
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<TaskHelper> TaskHelpers { get; set; }
-
-        //  public DbSet<User> Users { get; set; }
-
+        public DbSet<UserProject> UserProjects { get; set; }
+       
+        public DbSet<UserTask> UserTasks { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -70,22 +71,23 @@ namespace MvcDemo.Models
             base.OnModelCreating(modelBuilder);
 
             //To use fluent API here~~
-            modelBuilder.Entity<ApplicationUser>()
-            .HasMany(c => c.Projects).WithMany(i => i.ApplicationUsers)
-            .Map(t => t.MapLeftKey("ApplicationUser_Id")
-            .MapRightKey("Project_Id")
-            .ToTable("UserProjects"));
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<ApplicationUser>()
-           .HasMany(c => c.TaskHelpers).WithMany(i => i.ApplicationUsers)
-           .Map(t => t.MapLeftKey("ApplicationUser_Id")
-           .MapRightKey("TaskHelper_Id")
-           .ToTable("UserTasks"));
 
-            modelBuilder.Entity<Project>()
-            .HasMany<TaskHelper>(g => g.TaskHelpers)
-            .WithRequired(s => s.Project)
-            .HasForeignKey<Guid>(s => s.Project_Id);
+            // modelBuilder.Entity<ApplicationUser>()
+            // .HasMany(c => c.Projects).WithMany(i => i.ApplicationUsers)
+            // .Map(t => t.MapLeftKey("ApplicationUser_Id")
+            // .MapRightKey("Project_Id")
+            // .ToTable("UserProjects"));
+
+            // modelBuilder.Entity<ApplicationUser>()
+            //.HasMany(c => c.TaskHelpers).WithMany(i => i.ApplicationUsers)
+            //.Map(t => t.MapLeftKey("ApplicationUser_Id")
+            //.MapRightKey("TaskHelper_Id")
+            //.ToTable("UserTasks"));
+
+
         }
         public static ApplicationDbContext Create()
         {

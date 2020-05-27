@@ -40,8 +40,8 @@ namespace MvcDemo.Models
         [Required]
         public int Priority { get; set; } = 1;
 
-        public string ApplicationUser_Id { get; set; }
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public Guid CreatorId { get; set; }
+        public virtual ICollection<UserProject> UserProjects { get; set; }
 
         //public string ApplicationUser_Id { get; set; }
         //[ForeignKey("ApplicationUser_Id")]

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MvcDemo.Models;
+using MvcDemo.ViewModels;
 
 namespace MvcDemo.Controllers
 {
@@ -18,10 +19,39 @@ namespace MvcDemo.Controllers
         // GET: Projects
         public ActionResult Index(string whoId)
         {
-            var theProjects = db.Projects.Where(p => p.ApplicationUser_Id == whoId).ToList();
-            ViewBag.UserName= System.Web.HttpContext.Current.User.Identity.Name;
+            var UserID = User.Identity.GetUserId();
 
-            return View(theProjects);
+            List<ProjectTaskUserView> viewModel = new List<ProjectTaskUserView>();
+            var result1 = from a in db.Projects
+                         join b in db.UserProjects on a.Id equals b.Project_Id
+                         select new
+                         {
+                             CreateTime = a.CreateTime,
+                             Deadline = a.Deadline,
+                             IsFinished = a.IsFinished,
+                             ProjectTitle = a.ProjectTitle,
+                             ProjectContent = a.ProjectContent,
+                             Priority = a.Priority,
+                             ApplicationUser_Id = b.ApplicationUser_Id
+                         };
+            var result2 = result1.Where(r => r.ApplicationUser_Id == UserID).ToList();
+            foreach (var a in result2) //retrieve each item and assign to model
+            {
+                viewModel.Add(new ProjectTaskUserView()
+                {
+                    CreateTime = a.CreateTime,
+                    Deadline = a.Deadline,
+                    IsFinished = a.IsFinished,
+                    ProjectTitle = a.ProjectTitle,
+                    ProjectContent = a.ProjectContent,
+                    Priority = a.Priority, 
+                    ApplicationUser_Id = a.ApplicationUser_Id
+                });
+            }
+
+         //   ViewBag.ProjectList = result2;
+           
+            return View(viewModel);
         }
 
         // GET: Projects/Details/5
@@ -50,18 +80,30 @@ namespace MvcDemo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
      //   [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Budget,RealBudget,CreateTime,Deadline,FinishedTime,IsFinished,ProjectTitle,ProjectContent,Priority,ApplicationUser_Id")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Budget,RealBudget,CreateTime,Deadline,FinishedTime,IsFinished,ProjectTitle,ProjectContent,Priority")] Project project)
         {
             if (ModelState.IsValid)
             {
-                project.Id = Guid.NewGuid();
-                project.ApplicationUser_Id  = User.Identity.GetUserId();
+             
                 db.Projects.Add(project);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                //userProject table
+                UserProject mTom = new UserProject();
+                mTom.ApplicationUser_Id = User.Identity.GetUserId();
+                mTom.Project_Id = project.Id;
+                project.CreatorId = new Guid(mTom.ApplicationUser_Id);
 
-            return View(project);
+                db.UserProjects.Add(mTom);
+
+                //var UserID = User.Identity.GetUserId();
+                // var ProjectID = project.Id;
+                //db.UserProjects.Add(UserID);
+
+
+                db.SaveChanges();
+                return RedirectToAction("Index","Projects");
+            }
+      
+             return View();
         }
 
         // GET: Projects/Edit/5
