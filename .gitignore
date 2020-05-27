@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MvcDemo/App_Data/aspnet-MvcDemo-20200514userrole_log.ldf
