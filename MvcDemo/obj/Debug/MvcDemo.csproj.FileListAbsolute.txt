@@ -1003,6 +1003,9 @@ C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csproj.CopyComplete
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.dll
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.pdb
-C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csprojAssemblyReference.cache
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._1_Initial.resources
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csproj.GenerateResource.cache
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._2_ModifyTaskModel.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._3_RemoveStaffId.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csprojAssemblyReference.cache
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._4_ProjectTaskFKNull.resources

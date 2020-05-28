@@ -17,16 +17,66 @@ namespace MvcDemo.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        public ActionResult Index(string whoId, Guid? ProjectId)
+        public ActionResult Index(/*string whoId,*/ Guid? ProjectId)
         {
-         //   List<UPTNotification> viewModel = new List<UPTNotification>();
-            var viewmodelResult = from p in db.Projects
-                                  join u in db.UserProjects on p.Id equals u.Project_Id
-                                  where u.ApplicationUser_Id == whoId
-                                  //orderby p.CustomerKey, k.StateProvinceName
-                                  select new UPTNotification { Projects = p};
+            string whoId = User.Identity.GetUserId();
+            int numTasks = db.TaskHelpers.Count();
+
+           // var viewModel = new UPTNotification();
           
-          
+             ViewBag.Projects = db.Projects
+            .Where(c => c.UserProjects.Any(d => d.ApplicationUser_Id == whoId))
+            .OrderBy(i => i.Priority).ToList();
+            
+            ////if (ProjectId != null)
+            ////{
+
+            //    viewModel.TaskHelpers =  db.Projects
+            //.Where(c => c.TaskHelpers.Any(d => d.ProjectTask_Id == ProjectId)).FirstOrDefault().TaskHelpers
+            //.OrderBy(i => i.Priority);
+
+            ////}
+
+            //if (ProjectId == null)
+            //{
+            //    var viewModel = from p in db.Projects
+            //                     join u in db.UserProjects on p.Id equals u.Project_Id
+            //                     where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
+            //                     orderby p.CustomerKey, k.StateProvinceName
+            //                     select new UPTNotification { Projects = p };
+            //    ViewBag.ProjectId = ProjectId;
+            //    ViewBag.NumTasks = numTasks;
+            //    ModelState.Clear();
+            //    return View(viewModel);
+            //}
+      //if (ProjectId != null && numTasks == 0)
+      //      {
+      //          var viewModel = from p in db.Projects
+      //                          join u in db.UserProjects on p.Id equals u.Project_Id
+      //                          where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
+      //                         // orderby p.CustomerKey, k.StateProvinceName
+      //                          select new UPTNotification { Projects = p };
+      //          ViewBag.ProjectId = ProjectId;
+      //          ViewBag.NumTasks = numTasks;
+      //          ModelState.Clear();
+      //          return View(viewModel);
+      //      }
+      //      else
+      //      {
+                var viewModel = from p in db.Projects
+                                join u in db.UserProjects on p.Id equals u.Project_Id
+                                join t in db.TaskHelpers on u.Project_Id equals t.ProjectTask_Id
+                                where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
+                                orderby p.Deadline, t.Priority
+                                select new UPTNotification { Projects = p, TaskHelpers = t };
+                ViewBag.ProjectId = ProjectId;
+                ViewBag.NumTasks = numTasks;
+
+               // ModelState.Clear();
+                return View(viewModel);
+            //}
+
+
             //2list linq =>
             //var UserID = User.Identity.GetUserId();
             //var joinList = db.UserProjects.Where(u => u.ApplicationUser_Id == whoId).ToList();
@@ -91,7 +141,7 @@ namespace MvcDemo.Controllers
             //             };
             //var result4= result3.Where(r => r.ProId == ).ToList();
 
-            return View(viewmodelResult);
+        //    return View(viewModel);
         }
 
         // GET: Projects/Details/5
@@ -122,6 +172,7 @@ namespace MvcDemo.Controllers
         //   [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Budget,RealBudget,CreateTime,Deadline,FinishedTime,IsFinished,ProjectTitle,ProjectContent,Priority")] Project project)
         {
+            project.CreateTime = DateTime.Now;
             if (ModelState.IsValid)
             {
 

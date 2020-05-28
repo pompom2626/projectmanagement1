@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MvcDemo.Models;
 
 namespace MvcDemo.Controllers
@@ -46,14 +47,29 @@ namespace MvcDemo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Content,StaffId,ProjectTask_Id,Deadline,CreateTime,FinishTime,IsFinished,Priority,Status,CreatorId")] TaskHelper taskHelper)
+        public ActionResult Create([Bind(Include = "Id,Title,Content,StaffId,ProjectTask_Id,Deadline,CreateTime,FinishTime,IsFinished,Priority,Status,CreatorId")] TaskHelper taskHelper, Guid? ProjectId)
         {
+            taskHelper.CreateTime = DateTime.Now;
             if (ModelState.IsValid)
             {
+                string whoId= User.Identity.GetUserId();
+
                 taskHelper.Id = Guid.NewGuid();
+                taskHelper.ProjectTask_Id = ProjectId;
+                taskHelper.CreatorId =new Guid( User.Identity.GetUserId());
+                if(taskHelper.IsFinished == false)
+                {
+                    taskHelper.Status = 1;
+                }
+                //userProject table
+                UserTask mTom = new UserTask();
+                mTom.ApplicationUser_Id = User.Identity.GetUserId();
+                mTom.TaskHelper_Id = taskHelper.Id;
+                db.UserTasks.Add(mTom);
+
                 db.TaskHelpers.Add(taskHelper);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Projects",new {ProjectId =ProjectId, whoId = whoId});
             }
 
             return View(taskHelper);

@@ -18,13 +18,13 @@ namespace MvcDemo.Models
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }
-        [Required]
+      //  [Required]
         [MaxLength(500)]
         public string Content { get; set; }
-        public Guid StaffId { get; set; }
+      //  public Guid StaffId { get; set; }
       //  public Staff Staff { get; set; }
 
-        public Guid ProjectTask_Id { get; set; }
+        public Guid? ProjectTask_Id { get; set; }
         public Project Project { get; set; }
         [Required]
         public DateTime Deadline { get; set; }

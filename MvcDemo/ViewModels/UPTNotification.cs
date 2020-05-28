@@ -10,7 +10,9 @@ namespace MvcDemo.ViewModels
     {
         public ApplicationUser ApplicationUsers { get; set; }
         public Project Projects { get; set; }
-        public TaskHelper TaskHelper { get; set; }
+        public TaskHelper TaskHelpers { get; set; }
         public Notification Notifications { get; set; }
+        public UserProject UserProjects { get; set; }
+        public UserTask UserTasks { get; set; }
     }
 }
