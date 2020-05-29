@@ -22,126 +22,22 @@ namespace MvcDemo.Controllers
             string whoId = User.Identity.GetUserId();
             int numTasks = db.TaskHelpers.Count();
 
-           // var viewModel = new UPTNotification();
-          
-             ViewBag.Projects = db.Projects
-            .Where(c => c.UserProjects.Any(d => d.ApplicationUser_Id == whoId))
-            .OrderBy(i => i.Priority).ToList();
-            
-            ////if (ProjectId != null)
-            ////{
-
-            //    viewModel.TaskHelpers =  db.Projects
-            //.Where(c => c.TaskHelpers.Any(d => d.ProjectTask_Id == ProjectId)).FirstOrDefault().TaskHelpers
-            //.OrderBy(i => i.Priority);
-
-            ////}
-
-            //if (ProjectId == null)
-            //{
-            //    var viewModel = from p in db.Projects
-            //                     join u in db.UserProjects on p.Id equals u.Project_Id
-            //                     where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
-            //                     orderby p.CustomerKey, k.StateProvinceName
-            //                     select new UPTNotification { Projects = p };
-            //    ViewBag.ProjectId = ProjectId;
-            //    ViewBag.NumTasks = numTasks;
-            //    ModelState.Clear();
-            //    return View(viewModel);
-            //}
-      //if (ProjectId != null && numTasks == 0)
-      //      {
-      //          var viewModel = from p in db.Projects
-      //                          join u in db.UserProjects on p.Id equals u.Project_Id
-      //                          where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
-      //                         // orderby p.CustomerKey, k.StateProvinceName
-      //                          select new UPTNotification { Projects = p };
-      //          ViewBag.ProjectId = ProjectId;
-      //          ViewBag.NumTasks = numTasks;
-      //          ModelState.Clear();
-      //          return View(viewModel);
-      //      }
-      //      else
-      //      {
-                var viewModel = from p in db.Projects
-                                join u in db.UserProjects on p.Id equals u.Project_Id
-                                join t in db.TaskHelpers on u.Project_Id equals t.ProjectTask_Id
-                                where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
-                                orderby p.Deadline, t.Priority
-                                select new UPTNotification { Projects = p, TaskHelpers = t };
-                ViewBag.ProjectId = ProjectId;
-                ViewBag.NumTasks = numTasks;
-
-               // ModelState.Clear();
-                return View(viewModel);
-            //}
+            ViewBag.Projects = db.Projects
+           .Where(c => c.UserProjects.Any(d => d.ApplicationUser_Id == whoId))
+           .OrderBy(i => i.Priority).ToList();
 
 
-            //2list linq =>
-            //var UserID = User.Identity.GetUserId();
-            //var joinList = db.UserProjects.Where(u => u.ApplicationUser_Id == whoId).ToList();
-            //List<Project> projectList = new List<Project>();
-            //foreach(var pro in joinList)
-            //{
+            /*var viewModel*/ ViewBag.TaskView = from p in db.Projects
+                            join u in db.UserProjects on p.Id equals u.Project_Id
+                            join t in db.TaskHelpers on u.Project_Id equals t.ProjectTask_Id
+                            where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
+                            orderby p.Priority, t.Priority
+                            select new UPTNotification { Projects = p, TaskHelpers = t };
+            ViewBag.ProjectId = ProjectId;
+            ViewBag.NumTasks = numTasks;
 
-            //}
-
-            //List<Project> projectList = new List<Project>();
-            //foreach (var pro1 in db.Projects)
-            //{
-            //   if(pro1.Id ==joinList.proj)
-            //}
-
-
-            //viewmodel version1
-            // List<ProjectTaskUserView> viewModel = new List<ProjectTaskUserView>();
-
-            // var result1 = from a in db.Projects
-            //              join b in db.UserProjects on a.Id equals b.Project_Id
-            //              select new
-            //              {
-            //                  CreateTime = a.CreateTime,
-            //                  Deadline = a.Deadline,
-            //                  IsFinished = a.IsFinished,
-            //                  ProjectTitle = a.ProjectTitle,
-            //                  ProjectContent = a.ProjectContent,
-            //                  Priority = a.Priority,
-            //                  ApplicationUser_Id = b.ApplicationUser_Id
-            //              };
-            // var result2 = result1.Where(r => r.ApplicationUser_Id == UserID).ToList();
-            // foreach (var a in result2) //retrieve each item and assign to model
-            // {
-            //     viewModel.Add(new ProjectTaskUserView()
-            //     {
-            //         CreateTime = a.CreateTime,
-            //         Deadline = a.Deadline,
-            //         IsFinished = a.IsFinished,
-            //         ProjectTitle = a.ProjectTitle,
-            //         ProjectContent = a.ProjectContent,
-            //         Priority = a.Priority, 
-            //         ApplicationUser_Id = a.ApplicationUser_Id
-            //     });
-            // }
-
-            //ViewBag.Tasks = new SelectList(db.Projects, "Id", "ProjectTitle");
-
-            //   get related tasks for the selected project
-            //var result3 = from a in db.Projects
-            //              join b in db.TaskHelpers on a.Id equals b.Project.Id
-            //              select new
-            //              {
-            //                 ProId = a.Id,
-            //                 CreateTime = b.CreateTime,
-            //                 Deadline = b.Deadline,
-            //                 IsFinished = b.IsFinished,
-            //                 Title = b.Title,
-            //                 Priority = b.Priority,
-            //                 CreatorId = b.CreatorId,
-
-            //             };
-            //var result4= result3.Where(r => r.ProId == ).ToList();
-
-        //    return View(viewModel);
+            // ModelState.Clear();
+            return View(/*viewModel*/);
         }
 
         // GET: Projects/Details/5

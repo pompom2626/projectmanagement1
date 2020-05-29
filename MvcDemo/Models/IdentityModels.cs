@@ -29,8 +29,7 @@ namespace MvcDemo.Models
         public virtual ICollection<UserProject> UserProjects { get; set; }
         //public Guid UserTask_Id { get; set; }
         public virtual ICollection<UserTask> UserTasks { get; set; }
-
-
+        public virtual ICollection<Notification> Notifications { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -71,6 +70,11 @@ namespace MvcDemo.Models
             base.OnModelCreating(modelBuilder);
 
             //To use fluent API here~~
+            //modelBuilder.Entity<Notification>()
+            //    .HasOptional(s => s.ApplicationUser) // Mark Address property optional in Student entity
+            //    .WithRequired(a => a.Notification); //
+
+
             //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 

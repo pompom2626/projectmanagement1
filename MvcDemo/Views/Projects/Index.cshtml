@@ -1,89 +1,174 @@
 ﻿
-
-<div style="float:left;width:40%">
-    <h2>Projects List</h2>
-
-    <p>
-        @Html.ActionLink("Create New Project", "Create")
-    </p>
-    <table>
-        <tr>
-            <th>CreationDate </th>
-            <th>Deadline </th>
-            @*<th>IsFinished </th>*@
-            <th>ProjectTitle </th>
-            <th>ProjectContent </th>
-            <th>Priority </th>
-        </tr>
-
-        @foreach (var item in ViewBag.Projects)
-        {
+<div class="row">
+    <div class="col-xs-6" style="float:left;width:45%">
+        <h2>Projects List</h2>
+        <p>
+            @Html.ActionLink("Create New Project", "Create")
+        </p>
+        <table>
             <tr>
-                <td>Related Task</td>
-                <td>@item.CreateTime</td>
-                <td>@item.Deadline</td>
-                @*<td>@item.Projects.IsFinished</td>*@
-                <td>@item.ProjectTitle</td>
-                @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
-                <td>@item.ProjectContent</td>
-                <td>@item.Priority</td>
-                <td>
-                    @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
-                    @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, null)
-                </td>
-
+                @*<th>CreationDate </th>*@
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
             </tr>
-        }
-    </table>
-</div>
 
-<div style="float:right;width:40%">
-    <h2>Tasks List</h2>
-    @*@using (Html.BeginForm())
-        {
-            @Html.DropDownList("Tasks")
-            <input type="submit" value="Submit" />
-        }*@
-    <p>
-        @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
-    </p>
-    <table>
-        <tr>
-            @*<th>CreationDate </th>*@
-            <th>Deadline </th>
-            @*<th>IsFinished </th>*@
-            <th>ProjectTitle </th>
-            <th>ProjectContent </th>
-            <th>Priority </th>
-        </tr>
-        @if (ViewBag.ProjectId == null)
-        {
-            <caption></caption>
-        }
-        else
-        {
-            foreach (var item in Model)
+            @foreach (var item in ViewBag.Projects)
             {
-                if (item.TaskHelpers.ProjectTask_Id != ViewBag.ProjectId)
+                <tr>
+
+                    @*<td>@item.CreateTime</td>*@
+                    <td>@item.Deadline</td>
+                    @*<td>@item.Projects.IsFinished</td>*@
+                    <td>@item.ProjectTitle</td>
+                    @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+                    <td>@item.ProjectContent</td>
+                    <td>@item.Priority</td>
+                    <td>
+                        @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
+                        @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, new {@class="btn btn-primary"})
+                        @Html.ActionLink("Finish", "Index", "Projects", new { ProjectId = item.Id }, null)
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="col-xs-6" style="float:right;width:40%">
+        <h2>Tasks List</h2>
+        @*@using (Html.BeginForm())
+            {
+                @Html.DropDownList("Tasks")
+                <input type="submit" value="Submit" />
+            }*@
+        <p>
+            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+        </p>
+        <table>
+            <tr>
+                @*<th>CreationDate </th>*@
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
+            </tr>
+            @if (ViewBag.ProjectId == null)
+            {
+                <caption></caption>
+            }
+            else
+            {
+                foreach (var item in ViewBag.TaskView)
                 {
-                    <caption></caption>
-                }
-                else
-                {
-                    <tr>
-                        <td>@item.TaskHelpers.CreateTime</td>
-                        <td>@item.TaskHelpers.Deadline</td>
-                        <td>@item.TaskHelpers.IsFinished</td>
-                        <td>@item.TaskHelpers.Title</td>
-                        <td>@item.TaskHelpers.Content</td>
-                        <td>@item.TaskHelpers.Priority</td>
-                    </tr>
+                    if (item.TaskHelpers.ProjectTask_Id != ViewBag.ProjectId  /*Model*/)
+                    {
+                        <caption></caption>
+                    }
+                    else
+                    {
+                        <tr>
+                            @*<td>@item.TaskHelpers.CreateTime</td>*@
+                            <td>@item.TaskHelpers.Deadline</td>
+                            @*<td>@item.TaskHelpers.IsFinished</td>*@
+                            <td>@item.TaskHelpers.Title</td>
+                            <td>@item.TaskHelpers.Content</td>
+                            <td>@item.TaskHelpers.Priority</td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </table>
-    
+        </table>
+    </div>
 </div>
 
 
+</br>
+</br>
+<div class="row">
+    <div class="col-md-1">
+            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+    </div>
+    <div class="col-md-1">
+            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+    </div>
+    <div class="col-md-1">
+            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-6" style="float:left;width:45%">
+        <h2>Emergency Notification Projects</h2>
+        <p>
+            @Html.ActionLink("Create New Project", "Create")
+        </p>
+        <table>
+            <tr>
+                <th>CreationDate </th>
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
+            </tr>
+
+            @foreach (var item in ViewBag.Projects)
+            {
+                <tr>
+
+                    <td>@item.CreateTime</td>
+                    <td>@item.Deadline</td>
+                    @*<td>@item.Projects.IsFinished</td>*@
+                    <td>@item.ProjectTitle</td>
+                    @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+                    <td>@item.ProjectContent</td>
+                    <td>@item.Priority</td>
+                    <td>
+                        @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
+                        @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="col-xs-6" style="float:right;width:45%">
+        <h2>Emergency Notification Tasks</h2>
+        <p>
+            @Html.ActionLink("Create New Project", "Create")
+        </p>
+        <table>
+            <tr>
+                <th>CreationDate </th>
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
+            </tr>
+
+            @foreach (var item in ViewBag.Projects)
+            {
+                <tr>
+
+                    <td>@item.CreateTime</td>
+                    <td>@item.Deadline</td>
+                    <td>@item.ProjectTitle</td>
+                    @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+                    <td>@item.ProjectContent</td>
+                    <td>@item.Priority</td>
+                    <td>
+                        @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
+                        @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 

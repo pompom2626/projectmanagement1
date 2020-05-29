@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202005280043296_4_ProjectTaskFKNull.Designer.cs">
       <DependentUpon>202005280043296_4_ProjectTaskFKNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005290310226_5_setNotificationStructure.cs" />
+    <Compile Include="Migrations\202005290310226_5_setNotificationStructure.Designer.cs">
+      <DependentUpon>202005290310226_5_setNotificationStructure.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -461,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005280043296_4_ProjectTaskFKNull.resx">
       <DependentUpon>202005280043296_4_ProjectTaskFKNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005290310226_5_setNotificationStructure.resx">
+      <DependentUpon>202005290310226_5_setNotificationStructure.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
