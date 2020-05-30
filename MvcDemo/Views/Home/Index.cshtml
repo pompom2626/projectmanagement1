@@ -9,8 +9,8 @@
 }
 
 @*<p style="margin-top :40px">
-    @Html.ActionLink("Check Project Task List", "Index", "Projects", "ProjectsController", new { whoId = ViewBag.UserID }, new { @class = "btn btn-secondary" })
-</p>*@
+        @Html.ActionLink("Check Project Task List", "Index", "Projects", "ProjectsController", new { whoId = ViewBag.UserID }, new { @class = "btn btn-secondary" })
+    </p>*@
 
 @using (Html.BeginForm("Index", "Projects", new { whoId = ViewBag.UserID }, FormMethod.Post))
 {
@@ -18,9 +18,20 @@
     <input style="margin-top :40px" type="submit" value="Check Project Task List" />
 }
 
-<p style="margin-top :40px">
-    @Html.ActionLink("Check Notifications", "Index", "Projects", "ProjectsController", new { @class = "btn btn-secondary" })
-</p>
+@using (Html.BeginForm("CheckDeadline", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input style="margin-top :40px" type="submit" value="Check Time Management Notifications" />
+}
 <p style="margin-top :40px">
     @Html.ActionLink("Budget and Cost Management", "Index", "Projects", "ProjectsController", new { @class = "btn btn-dark" })
 </p>
+
+
+
+
+@using (Html.BeginForm("CheckDeadline", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input style="margin-top :40px" type="submit" value="Check Time Management Notifications" />
+}

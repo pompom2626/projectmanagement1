@@ -15,7 +15,7 @@ namespace MvcDemo.Models
         public string Title { get; set; }
         [Required,MaxLength(500)]
         public string Content { get; set; }
-        public Guid ApplicationUser_Id { get; set; }//Sender
+        public string ApplicationUserId { get; set; }//Sender
         public ApplicationUser ApplicationUser { get; set; }
         [Required]
         public bool IsChecked { get; set; } = false;

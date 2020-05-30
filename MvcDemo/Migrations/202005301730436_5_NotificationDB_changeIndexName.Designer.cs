@@ -7,13 +7,13 @@ namespace MvcDemo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _5_setNotificationStructure : IMigrationMetadata
+    public sealed partial class _5_NotificationDB_changeIndexName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_5_setNotificationStructure));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_5_NotificationDB_changeIndexName));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005290310226_5_setNotificationStructure"; }
+            get { return "202005301730436_5_NotificationDB_changeIndexName"; }
         }
         
         string IMigrationMetadata.Source

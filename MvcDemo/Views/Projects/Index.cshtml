@@ -27,9 +27,15 @@
                     <td>@item.ProjectContent</td>
                     <td>@item.Priority</td>
                     <td>
-                        @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
-                        @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, new {@class="btn btn-primary"})
-                        @Html.ActionLink("Finish", "Index", "Projects", new { ProjectId = item.Id }, null)
+                        @Html.ActionLink("Check", "Index", "Projects", new { ProjectId = item.Id }, new { @class = "btn btn-primary" })
+                        @if (item.IsFinished == false)
+                        {
+                            @Html.ActionLink("UnFinish", "ChangeIsFinished", "Projects", new { ProjectId = item.Id }, null)
+                        }
+                        else
+                        {
+                            @Html.ActionLink("finish", "ChangeIsFinished", "Projects", new { ProjectId = item.Id }, null)
+                        }
                     </td>
 
                 </tr>
@@ -90,13 +96,13 @@
 </br>
 <div class="row">
     <div class="col-md-1">
-            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+        @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
     </div>
     <div class="col-md-1">
-            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+        @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
     </div>
     <div class="col-md-1">
-            @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
+        @Html.ActionLink("Create New Task", "Create", "TaskHelpers", new { ProjectId = ViewBag.ProjectId }, null)
     </div>
 </div>
 

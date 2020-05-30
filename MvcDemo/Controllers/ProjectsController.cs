@@ -17,7 +17,7 @@ namespace MvcDemo.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        public ActionResult Index(/*string whoId,*/ Guid? ProjectId)
+        public ActionResult Index(/*string whoId,*/ Guid? ProjectId )
         {
             string whoId = User.Identity.GetUserId();
             int numTasks = db.TaskHelpers.Count();
@@ -35,10 +35,50 @@ namespace MvcDemo.Controllers
                             select new UPTNotification { Projects = p, TaskHelpers = t };
             ViewBag.ProjectId = ProjectId;
             ViewBag.NumTasks = numTasks;
-
+           
             // ModelState.Clear();
             return View(/*viewModel*/);
         }
+
+        public ActionResult ChangeIsFinished(Guid? ProjectId)
+        {
+            var isFinish = db.Projects.Find(ProjectId);
+            if (isFinish.IsFinished == false)
+            {
+                isFinish.IsFinished = true;
+                isFinish.FinishedTime = DateTime.Now;
+            }
+            else
+            {
+                isFinish.IsFinished = false;
+                isFinish.FinishedTime = null ;
+            }
+            
+            db.SaveChanges();
+
+            return Redirect(Url.Action("Index", "Projects", new { ProjectId = ProjectId }));
+        }
+
+
+        public ActionResult ChangeTaskFinished(Guid? ProjectId)
+        {
+            var isFinish = db.Projects.Find(ProjectId);
+            if (isFinish.IsFinished == false)
+            {
+                isFinish.IsFinished = true;
+                isFinish.FinishedTime = DateTime.Now;
+            }
+            else
+            {
+                isFinish.IsFinished = false;
+                isFinish.FinishedTime = null;
+            }
+
+            db.SaveChanges();
+
+            return Redirect(Url.Action("Index", "Projects", new { ProjectId = ProjectId }));
+        }
+
 
         // GET: Projects/Details/5
         public ActionResult Details(Guid? id)

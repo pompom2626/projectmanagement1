@@ -1009,4 +1009,4 @@ C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._3_RemoveStaffId.resources
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csprojAssemblyReference.cache
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._4_ProjectTaskFKNull.resources
-C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._5_setNotificationStructure.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._5_NotificationDB_changeIndexName.resources
