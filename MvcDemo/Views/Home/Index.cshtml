@@ -1,6 +1,6 @@
 ﻿
 
-@{MvcDemo.Models.ApplicationDbContext db = new MvcDemo.Models.ApplicationDbContext();}
+@{MvcDemo.Models.ApplicationDbContext db = new MvcDemo.Models.ApplicationDbContext(); }
 @*@{using Microsoft.AspNet.Identity; }
     @{var UserId = User.Identity.GetUserId(); }}*@
 
@@ -18,6 +18,15 @@
     <input style="margin-top :40px" type="submit" value="Check Project Task List" />
 }
 
+</br>
+<p> If log-in user's role is "Developer", Please select involved project</p>
+@using (Html.BeginForm("Index", "Projects", new { ProjectId = "" }, FormMethod.Post))
+{
+    @*@Html.DropDownList("Id", ViewBag.Projects , new { onchange = "this.form.submit();" })*@
+    @Html.DropDownList("ProjectId", ViewBag.Projects as SelectList)
+    <input type="submit" value="Submit" />
+}
+
 @using (Html.BeginForm("CheckDeadline", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -26,8 +35,6 @@
 <p style="margin-top :40px">
     @Html.ActionLink("Budget and Cost Management", "Index", "Projects", "ProjectsController", new { @class = "btn btn-dark" })
 </p>
-
-
 
 
 @using (Html.BeginForm("CheckDeadline", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))

@@ -27,6 +27,7 @@ namespace MvcDemo.Controllers
                                  select r.Name).ToList();
 
             string currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+            ViewBag.Projects = new SelectList(db.Projects, "Id", "ProjectTitle");
             //   MembershipUser user = Membership.GetUser(currentUserName);
             // to get project and task lists
 
