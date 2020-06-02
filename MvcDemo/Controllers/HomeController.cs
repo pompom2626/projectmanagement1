@@ -115,7 +115,7 @@ namespace MvcDemo.Controllers
             //        }
             //    }
 
-
+            //can i send view to project/index?
             // return View("~/Views/Prjoects/Index.cshtml");
             return View();
         }
