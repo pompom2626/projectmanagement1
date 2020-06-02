@@ -9,10 +9,10 @@ namespace MvcDemo.Models
 {
     public class TaskHelper
     {
-        //public TaskHelper()
-        //{
-        //    this.Project = new HashSet<Project>();
-        //}
+        public TaskHelper()
+        {
+            this.UserTasks = new HashSet<UserTask>();
+        }
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
@@ -36,5 +36,6 @@ namespace MvcDemo.Models
         public int Status { get; set; }
         public Guid CreatorId { get; set; }
         public virtual ICollection<UserTask> UserTasks { get; set; }
+       // public virtual Notification Notification { get; set; }
     }
 }

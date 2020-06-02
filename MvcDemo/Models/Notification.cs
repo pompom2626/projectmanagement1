@@ -20,6 +20,12 @@ namespace MvcDemo.Models
         [Required]
         public bool IsChecked { get; set; } = false;
         public bool IsBeyondDeadline { get; set; } = false;
-       // public Nullable<Guid> Task { get; set; }
+      //  [ForeignKey("Project")]
+        public Guid DeadlineProjectId { get; set; }
+        public  virtual Project Project { get; set; }
+      //  [ForeignKey("TaskHelper")]
+        public Guid DeadlineTaskHelperId { get; set; }
+        public virtual TaskHelper TaskHelper { get; set; }
+  //       public Nullable<Guid> Task { get; set; }
     }
 }

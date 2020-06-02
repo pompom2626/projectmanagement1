@@ -4,6 +4,7 @@ using MvcDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,13 +21,15 @@ namespace MvcDemo.Controllers
             var UserID = User.Identity.GetUserId();
             ViewBag.UserId = UserID;
             var userRoles = db.Roles.Include(r => r.Users).ToList();
-
             var userRoleNames = (from r in userRoles
                                  from u in r.Users
                                  where u.UserId == UserID
                                  select r.Name).ToList();
 
             string currentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+            //   var currentRole = System.Web.Security.Roles.GetRolesForUser().Single();
+            //    var RolesForUser = await UserManager.GetRolesAsync(UserID);
+
             ViewBag.Projects = new SelectList(db.Projects, "Id", "ProjectTitle");
             //   MembershipUser user = Membership.GetUser(currentUserName);
             // to get project and task lists
@@ -45,7 +48,14 @@ namespace MvcDemo.Controllers
             var SelectManager = db.Projects
            .Where(c => c.UserProjects.Any(d => d.ApplicationUser_Id == UserID))
            .OrderBy(i => i.Priority).ToList();
-            foreach (var project in db.Projects)
+
+            //duplication check
+            //HashSet<string> proNoti = new HashSet<string>(db.Notifications.Select(s => s.Content));
+            //var result1 = db.Projects
+            //    .Where(m => !proNoti.Contains(m.ProjectContent)).ToList();
+            var result1 = db.Projects.Where(x => !db.Notifications.Any(y => y.DeadlineProjectId == x.Id)).ToList();
+
+            foreach (var project in result1)
             {
                 //only notification for project manager
                 TimeSpan t = (DateTime.Now - project.Deadline);
@@ -57,34 +67,57 @@ namespace MvcDemo.Controllers
                     n.IsChecked = false;
                     n.IsBeyondDeadline = true;
                     n.ApplicationUserId = project.CreatorId.ToString();
+                    n.DeadlineProjectId = project.Id;
+                    db.Notifications.Add(n);
+                }
+            }
+            //duplication check
+            //HashSet<string> taskNoti = new HashSet<string>(db.Notifications.Select(s => s.Content));
+            //var result2 = db.TaskHelpers.Where(m => !taskNoti.Contains(m.Content));
+            var result2 = db.TaskHelpers.Where(x => !db.Notifications.Any(y => y.DeadlineTaskHelperId == x.Id)).ToList();
+            foreach (var task in result2)
+            {
+                //only notification for project manager
+                TimeSpan t = (DateTime.Now - task.Deadline);
+                if (t.TotalDays > 0)
+                {
+                    var n = new Notification();
+                    n.Title = $"Deadline Task Notification";
+                    n.Content = $"DeadLine Task : {task.Title} ..input more resources";
+                    n.IsChecked = false;
+                    n.IsBeyondDeadline = true;
+                    n.ApplicationUserId = task.CreatorId.ToString();
+                    n.DeadlineTaskHelperId = task.Id;
                     db.Notifications.Add(n);
                 }
             }
             db.SaveChanges();
+            ViewBag.DeadlineProjects =db.Projects.Where(p=>db.Notifications.Any(n => n.DeadlineProjectId == p.Id));
+            ViewBag.DeadlineTasks = db.TaskHelpers.Where(t=>db.Notifications.Any(n => n.DeadlineTaskHelperId ==t.Id ));
+            //foreach (var task in db.TaskHelpers)
+            //    {
+            //        //for porject manager and developer (a developer can review peer developer's deadline and cowork with each other
+            //        TimeSpan tt = (DateTime.Now - task.Deadline);
+            //        if (tt.TotalDays > 0)
+            //        {
+            //         //   var notificationList = db.Notifications.Where(nt => nt.ApplicationUser_Id == UserID);
+            //         //   if (!notificationList.Any(n => n.Task == task.Id))
+            //         //   {
+            //                var n = new Notification();
+            //                n.Title = $"Deadline Task Notification";
+            //                n.Content = $"Deadline Task :{task.Title} ....input more resources";
+            //                n.ApplicationUserId = task.CreatorId.ToString();
+            //                n.IsChecked = false;
+            //                n.IsBeyondDeadline = true;
+            //                db.Notifications.Add(n);
+            //                db.SaveChanges();
+            //          //  }
+            //        }
+            //    }
 
-            foreach (var task in db.TaskHelpers)
-                {
-                    //for porject manager and developer (a developer can review peer developer's deadline and cowork with each other
-                    TimeSpan tt = (DateTime.Now - task.Deadline);
-                    if (tt.TotalDays > 0)
-                    {
-                     //   var notificationList = db.Notifications.Where(nt => nt.ApplicationUser_Id == UserID);
-                     //   if (!notificationList.Any(n => n.Task == task.Id))
-                     //   {
-                            var n = new Notification();
-                            n.Title = $"Deadline Project Notification";
-                            n.Content = $"Deadline Task :{task.Title} ....input more resources";
-                            n.ApplicationUserId = task.CreatorId.ToString();
-                            n.IsChecked = false;
-                            n.IsBeyondDeadline = true;
-                            db.Notifications.Add(n);
-                            db.SaveChanges();
-                      //  }
-                    }
-                }
-            
 
-            return View("~/Views/Prjoects/Index.cshtml");
+            // return View("~/Views/Prjoects/Index.cshtml");
+            return View();
         }
         public ActionResult About()
         {
@@ -99,5 +132,7 @@ namespace MvcDemo.Controllers
 
             return View();
         }
+
+      
     }
 }

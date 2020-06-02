@@ -1,0 +1,72 @@
+﻿
+<div class="row">
+    <div class="col-xs-6" style="float:left;width:45%">
+        <h2>Deadline Notification Projects</h2>
+        <p>
+            @Html.ActionLink("Create New Project", "Create")
+        </p>
+        <table>
+            <tr>
+                <th>CreationDate </th>
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
+            </tr>
+
+            @foreach (var item in ViewBag.DeadlineProjects)
+            {
+                <tr>
+
+                    <td>@item.CreateTime</td>
+                    <td>@item.Deadline</td>
+                    @*<td>@item.Projects.IsFinished</td>*@
+                    <td>@item.ProjectTitle</td>
+                    @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+                    <td>@item.ProjectContent</td>
+                    <td>@item.Priority</td>
+                    <td>
+                        @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
+                        @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="col-xs-6" style="float:right;width:45%">
+        <h2>Deadline Notification Tasks</h2>
+        <p>
+            @Html.ActionLink("Create New Project", "Create")
+        </p>
+        <table>
+            <tr>
+                <th>CreationDate </th>
+                <th>Deadline </th>
+                @*<th>IsFinished </th>*@
+                <th>ProjectTitle </th>
+                <th>ProjectContent </th>
+                <th>Priority </th>
+            </tr>
+
+            @foreach (var item in ViewBag.DeadlineTasks)
+            {
+                <tr>
+
+                    <td>@item.CreateTime</td>
+                    <td>@item.Deadline</td>
+                    <td>@item.Title</td>
+                    @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+                    <td>@item.Content</td>
+                    <td>@item.Priority</td>
+                    <td>
+                        @*@Html.ActionLink("Select", "Index", "TaskHelpers", new { ProjectId = item.Projects.Id},null)*@
+                        @Html.ActionLink("Select", "Index", "Projects", new { ProjectId = item.Id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

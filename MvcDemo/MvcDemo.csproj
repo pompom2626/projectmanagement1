@@ -199,6 +199,10 @@
     <Compile Include="Migrations\202005301730436_5_NotificationDB_changeIndexName.Designer.cs">
       <DependentUpon>202005301730436_5_NotificationDB_changeIndexName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006011918090_6_Notification_PrjectTask.cs" />
+    <Compile Include="Migrations\202006011918090_6_Notification_PrjectTask.Designer.cs">
+      <DependentUpon>202006011918090_6_Notification_PrjectTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -434,6 +438,7 @@
     <Content Include="Views\TaskHelpers\Details.cshtml" />
     <Content Include="Views\TaskHelpers\Edit.cshtml" />
     <Content Include="Views\TaskHelpers\Index.cshtml" />
+    <Content Include="Views\Home\CheckDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -471,6 +476,12 @@
     <EmbeddedResource Include="Migrations\202005301730436_5_NotificationDB_changeIndexName.resx">
       <DependentUpon>202005301730436_5_NotificationDB_changeIndexName.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006011918090_6_Notification_PrjectTask.resx">
+      <DependentUpon>202006011918090_6_Notification_PrjectTask.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\OzCode.VisualStudioExtensionAnalyzers.1.6.6344.22888\analyzers\dotnet\cs\OzCode.VisualStudioExtensionAnalyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

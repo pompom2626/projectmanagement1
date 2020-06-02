@@ -42,6 +42,8 @@ namespace MvcDemo.Models
 
         public Guid CreatorId { get; set; }
         public virtual ICollection<UserProject> UserProjects { get; set; }
+       // public virtual Notification Notification { get; set; }
+        
 
         //public string ApplicationUser_Id { get; set; }
         //[ForeignKey("ApplicationUser_Id")]

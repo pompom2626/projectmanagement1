@@ -26,16 +26,34 @@ namespace MvcDemo.Controllers
            .Where(c => c.UserProjects.Any(d => d.ApplicationUser_Id == whoId))
            .OrderBy(i => i.Priority).ToList();
 
+            var UserID = User.Identity.GetUserId();
+            var userRoles = db.Roles.Include(r => r.Users).ToList();
+            var userRoleNames = (from r in userRoles
+                                 from u in r.Users
+                                 where u.UserId == UserID
+                                 select r.Name).ToList();
+            //if project manager
+            if (userRoleNames[0] == "Manager")
+            {
+                ViewBag.TaskView = from p in db.Projects
+                                   join u in db.UserProjects on p.Id equals u.Project_Id
+                                   join t in db.TaskHelpers on u.Project_Id equals t.ProjectTask_Id
+                                   where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
+                                   orderby p.Priority, t.Priority
+                                   select new UPTNotification { Projects = p, TaskHelpers = t };
+            }
+            if (userRoleNames[0] == "Developer")
+            {
+                ViewBag.TaskView = from p in db.Projects
+                                   join u in db.UserProjects on p.Id equals u.Project_Id
+                                   join t in db.TaskHelpers on u.Project_Id equals t.ProjectTask_Id
+                               //    where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
+                                   orderby p.Priority, t.Priority
+                                   select new UPTNotification { Projects = p, TaskHelpers = t };
+            }
 
-            /*var viewModel*/ ViewBag.TaskView = from p in db.Projects
-                            join u in db.UserProjects on p.Id equals u.Project_Id
-                            join t in db.TaskHelpers on u.Project_Id equals t.ProjectTask_Id
-                            where u.ApplicationUser_Id == whoId  //project for only login user and tasks for all user under the project
-                            orderby p.Priority, t.Priority
-                            select new UPTNotification { Projects = p, TaskHelpers = t };
             ViewBag.ProjectId = ProjectId;
             ViewBag.NumTasks = numTasks;
-           
             // ModelState.Clear();
             return View(/*viewModel*/);
         }
