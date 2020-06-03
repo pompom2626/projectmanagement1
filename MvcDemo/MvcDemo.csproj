@@ -203,12 +203,28 @@
     <Compile Include="Migrations\202006011918090_6_Notification_PrjectTask.Designer.cs">
       <DependentUpon>202006011918090_6_Notification_PrjectTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006022123442_7_AddSalaryColumnInUser.cs" />
+    <Compile Include="Migrations\202006022123442_7_AddSalaryColumnInUser.Designer.cs">
+      <DependentUpon>202006022123442_7_AddSalaryColumnInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006030401134_8_BudgetDBcreation.cs" />
+    <Compile Include="Migrations\202006030401134_8_BudgetDBcreation.Designer.cs">
+      <DependentUpon>202006030401134_8_BudgetDBcreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006030416480_8_1BudgetDBcreation.cs" />
+    <Compile Include="Migrations\202006030416480_8_1BudgetDBcreation.Designer.cs">
+      <DependentUpon>202006030416480_8_1BudgetDBcreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006030445349_8_2BudgetDBcreation.cs" />
+    <Compile Include="Migrations\202006030445349_8_2BudgetDBcreation.Designer.cs">
+      <DependentUpon>202006030445349_8_2BudgetDBcreation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
-    <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\TaskHelper.cs" />
@@ -439,6 +455,7 @@
     <Content Include="Views\TaskHelpers\Edit.cshtml" />
     <Content Include="Views\TaskHelpers\Index.cshtml" />
     <Content Include="Views\Home\CheckDeadline.cshtml" />
+    <Content Include="Views\Home\CheckBudget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -478,6 +495,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006011918090_6_Notification_PrjectTask.resx">
       <DependentUpon>202006011918090_6_Notification_PrjectTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006022123442_7_AddSalaryColumnInUser.resx">
+      <DependentUpon>202006022123442_7_AddSalaryColumnInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006030401134_8_BudgetDBcreation.resx">
+      <DependentUpon>202006030401134_8_BudgetDBcreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006030416480_8_1BudgetDBcreation.resx">
+      <DependentUpon>202006030416480_8_1BudgetDBcreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006030445349_8_2BudgetDBcreation.resx">
+      <DependentUpon>202006030445349_8_2BudgetDBcreation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

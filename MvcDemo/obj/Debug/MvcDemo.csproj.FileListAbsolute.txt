@@ -1007,7 +1007,11 @@ C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csproj.GenerateResource.cache
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._2_ModifyTaskModel.resources
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._3_RemoveStaffId.resources
-C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csprojAssemblyReference.cache
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._4_ProjectTaskFKNull.resources
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._5_NotificationDB_changeIndexName.resources
 C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._6_Notification_PrjectTask.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._7_AddSalaryColumnInUser.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.csprojAssemblyReference.cache
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._8_BudgetDBcreation.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._8_1BudgetDBcreation.resources
+C:\Users\uni21\BackEnd_Study\trello_project\projectmanagement1\MvcDemo\obj\Debug\MvcDemo.Migrations._8_2BudgetDBcreation.resources

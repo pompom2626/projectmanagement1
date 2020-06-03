@@ -18,7 +18,7 @@
     <input style="margin-top :40px" type="submit" value="Check Project Task List" />
 }
 
-</br>
+
 <p> If log-in user's role is "Developer", Please select involved project</p>
 @using (Html.BeginForm("Index", "Projects", new { ProjectId = "" }, FormMethod.Post))
 {
@@ -32,13 +32,15 @@
     @Html.AntiForgeryToken()
     <input style="margin-top :40px" type="submit" value="Check Time Management Notifications" />
 }
-<p style="margin-top :40px">
-    @Html.ActionLink("Budget and Cost Management", "Index", "Projects", "ProjectsController", new { @class = "btn btn-dark" })
-</p>
 
-
-@using (Html.BeginForm("CheckDeadline", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))
+@using (Html.BeginForm("CheckBudget", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <input style="margin-top :40px" type="submit" value="Check Time Management Notifications" />
+    <input style="margin-top :40px" type="submit" value="Check Budget Management" />
 }
+
+@*@using (Html.BeginForm("CheckDeadline", "Home", new { whoId = ViewBag.UserID }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input style="margin-top :40px" type="submit" value="Check Time Management Notifications" />
+    }*@

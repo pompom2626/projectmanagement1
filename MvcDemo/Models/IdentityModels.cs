@@ -24,6 +24,7 @@ namespace MvcDemo.Models
         [Display(Name = "Full"), Required]
         [StringLength(100)]
         public string FullName { get; set; }
+        public double Salary { get; set; }
         public bool Gender { get; set; }
         //public Guid UserProject_Id { get; set; }
         public virtual ICollection<UserProject> UserProjects { get; set; }
@@ -59,6 +60,7 @@ namespace MvcDemo.Models
         public DbSet<UserProject> UserProjects { get; set; }
        
         public DbSet<UserTask> UserTasks { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
