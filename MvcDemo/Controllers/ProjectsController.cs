@@ -54,6 +54,16 @@ namespace MvcDemo.Controllers
 
             ViewBag.ProjectId = ProjectId;
             ViewBag.NumTasks = numTasks;
+
+            if (ProjectId != null)
+            {
+                var totalTask = db.TaskHelpers.Where(t => t.ProjectTask_Id == ProjectId).Count();
+                var finishTask = db.TaskHelpers.Where(t => t.ProjectTask_Id == ProjectId).Where(t => t.IsFinished == true).Count();
+                if (totalTask != 0)
+                {
+                    ViewBag.CompletionPercent = (Convert.ToDouble(finishTask) / Convert.ToDouble(totalTask))*100;
+                }
+            }
             // ModelState.Clear();
             return View(/*viewModel*/);
         }
@@ -78,18 +88,19 @@ namespace MvcDemo.Controllers
         }
 
 
-        public ActionResult ChangeTaskFinished(Guid? ProjectId)
+        public ActionResult ChangeTaskFinished(Guid? ProjectId, Guid? TaskId)
         {
             var isFinish = db.Projects.Find(ProjectId);
-            if (isFinish.IsFinished == false)
+            var taskFinish = db.TaskHelpers.Find(TaskId);
+            if (taskFinish.IsFinished == false)
             {
-                isFinish.IsFinished = true;
-                isFinish.FinishedTime = DateTime.Now;
+                taskFinish.IsFinished = true;
+                taskFinish.FinishTime = DateTime.Now;
             }
             else
             {
-                isFinish.IsFinished = false;
-                isFinish.FinishedTime = null;
+                taskFinish.IsFinished = false;
+                taskFinish.FinishTime = null;
             }
 
             db.SaveChanges();

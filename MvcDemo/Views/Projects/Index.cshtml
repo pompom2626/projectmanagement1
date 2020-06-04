@@ -75,9 +75,9 @@
                         <caption></caption>
                     }
                     @*else if (item.TaskHelpers.CreatorId== Users.Id)
-                    {
-                        <caption></caption>
-                    }*@
+                        {
+                            <caption></caption>
+                        }*@
                     else
                     {
                         <tr>
@@ -87,11 +87,27 @@
                             <td>@item.TaskHelpers.Title</td>
                             <td>@item.TaskHelpers.Content</td>
                             <td>@item.TaskHelpers.Priority</td>
+                            <td>
+                                @*@Html.ActionLink("Check", "Index", "Projects", new { ProjectId = item.Id }, new { @class = "btn btn-primary" })*@
+                                @if (item.TaskHelpers.IsFinished == false)
+                                {
+                                    @Html.ActionLink("UnFinish", "ChangeTaskFinished", "Projects", new { ProjectId = item.Projects.Id, TaskId = item.TaskHelpers.Id }, null)
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("finish", "ChangeTaskFinished", "Projects", new { ProjectId = item.Projects.Id, TaskId = item.TaskHelpers.Id }, null)
+                                }
+                            </td>
                         </tr>
+
                     }
                 }
             }
         </table>
+        @if (ViewBag.CompletionPercent != null)
+        {
+        <p>Project Completion Percent : @ViewBag.CompletionPercent  %</p>
+        }
     </div>
 </div>
 

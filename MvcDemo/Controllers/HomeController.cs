@@ -176,6 +176,7 @@ namespace MvcDemo.Controllers
             //        IEnumerable<object> all1 = ((IEnumerable<object>)groups).Concat(days.Cast<object>());
             double companyTotal = 0;
             var expectBudget = new List<Tuple<Guid,double>>();
+  
             foreach (var g in groups)
             {
                 foreach (var d in days)
@@ -185,11 +186,35 @@ namespace MvcDemo.Controllers
                         var projectBudget = 1 * d.days * 500 + (g.ProjectCount - 1) * d.days * 200;
                         expectBudget.Add(new Tuple<Guid,double>(d.ProjectId, projectBudget));
                         companyTotal = companyTotal + projectBudget;
+                        
                     }
                 }
             }
             ViewBag.ExpectBudget = expectBudget;
             ViewBag.ProjectLists = db.Projects;
+
+            //real budget
+            var finishDays = db.Budgets.DistinctBy(n => n.ProjectId).Select(n => new { n.ProjectId, n.FinishDays, n.days }).ToList();
+            var realBudget = new List<Tuple<Guid, double?, double>>();
+            double? companyTotal2 = 0;
+            foreach (var g in groups)
+            {
+                foreach (var d in finishDays)
+                {
+                    if (g.ProjectId == d.ProjectId)
+                    {
+                        var projectBudget2 = 1 * d.FinishDays * 500 + (g.ProjectCount - 1) * d.FinishDays * 200;
+                        var projectBudget3 = 1 * d.days * 500 + (g.ProjectCount - 1) * d.days * 200;
+                        if (projectBudget2 > projectBudget3)
+                        {
+                            realBudget.Add(new Tuple<Guid, double?, double>(d.ProjectId, projectBudget2, projectBudget3));
+                            companyTotal2 = companyTotal2 + projectBudget2;
+                        }
+                    }
+                }
+            }
+            ViewBag.RealBudget = realBudget;
+
             // var expectCost= groups.Where(n=>days.Any(m=>m.))
 
             //for real budget about finish over deadline

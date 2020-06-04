@@ -1,45 +1,76 @@
 ﻿<div class="row">
-<div class="col-xs-6" style="float:left;width:45%">
-    <h2>Projects Budget List</h2>
+    <div class="col-xs-6" style="float:left;width:45%">
+        <h2>Projects Budget List</h2>
 
-    <table>
-        <tr>
-            @*<th>CreationDate </th>*@
-            <th>ProjectId </th>
-            @*<th>IsFinished </th>*@
-            <th>Budget</th>
+        <table>
+            <tr>
+                @*<th>CreationDate </th>*@
+                <th>ProjectId </th>
+                @*<th>IsFinished </th>*@
+                <th>Budget</th>
 
-        </tr>
-        @foreach (var pro in ViewBag.ProjectLists)
-        {
-            foreach (var item in ViewBag.ExpectBudget)
+            </tr>
+            @foreach (var pro in ViewBag.ProjectLists)
             {
-                if (pro.Id == item.Item1)
+                foreach (var item in ViewBag.ExpectBudget)
                 {
-                <tr>
+                    if (pro.Id == item.Item1)
+                    {
+                        <tr>
 
-                    @*<td>@item.CreateTime</td>*@
-                    @*<td>@item.Item1</td>*@
-                    <td>@pro.ProjectTitle</td>
-                    <td>@item.Item2</td>
-                    @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
-                    @*<td>@item.ProjectContent</td>
-                        <td>@item.Priority</td>
-                        <td>
-                            @Html.ActionLink("Check", "Index", "Projects", new { ProjectId = item.Id }, new { @class = "btn btn-primary" })
-                            @if (item.IsFinished == false)
-                            {
-                                @Html.ActionLink("UnFinish", "ChangeIsFinished", "Projects", new { ProjectId = item.Id }, null)
-                            }
-                            else
-                            {
-                                @Html.ActionLink("finish", "ChangeIsFinished", "Projects", new { ProjectId = item.Id }, null)
-                            }
-                        </td>*@
+                            @*<td>@item.CreateTime</td>*@
+                            @*<td>@item.Item1</td>*@
+                            <td>@pro.ProjectTitle</td>
+                            <td>@item.Item2</td>
+                            @*<p> @Html.ActionLink(item.ProjectTitle, "Index", "Comments", new { PostId = item.Id }, new { @style = "color:#000aaa;" }) </p>*@
+                            @*<td>@item.ProjectContent</td>
+                                <td>@item.Priority</td>
+                                <td>
+                                    @Html.ActionLink("Check", "Index", "Projects", new { ProjectId = item.Id }, new { @class = "btn btn-primary" })
+                                    @if (item.IsFinished == false)
+                                    {
+                                        @Html.ActionLink("UnFinish", "ChangeIsFinished", "Projects", new { ProjectId = item.Id }, null)
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("finish", "ChangeIsFinished", "Projects", new { ProjectId = item.Id }, null)
+                                    }
+                                </td>*@
 
-                </tr>
+                        </tr>
                     }
                 }
-        }
-    </table>
-</div>
+            }
+        </table>
+    </div>
+
+
+
+    <div class="col-xs-6" style="float:left;width:45%">
+        <h2>Exceed Budget Projects List</h2>
+
+        <table>
+            <tr>
+                @*<th>CreationDate </th>*@
+                <th>ProjectId </th>
+                @*<th>IsFinished </th>*@
+                <th>Budget</th>
+
+            </tr>
+            @foreach (var pro in ViewBag.ProjectLists)
+            {
+                foreach (var item in ViewBag.RealBudget)
+                {
+                    if (pro.Id == item.Item1)
+                    {
+                        <tr>
+
+                            <td>@pro.ProjectTitle</td>
+                            <td>@item.Item2</td>
+                        
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </div>
